@@ -48,6 +48,19 @@
 #define AC_G_SPC  LGUI(KC_SPC) // elementary: Shows application launcher
 
 
+// For leader key macros
+#define AROBASE "@"         // To avoid crawlers that match email addresses
+#define CANADA ".ca"       // Idem
+#define COMMERCIAL ".com"  // Idem
+#define SLASH "`"  // To get "/" using the Canadian Multilingual layout
+#define NAME "Jean Olivier Simoneau"
+#define NAMEDOT "jean.olivier.simoneau"
+#define SCHOOL_EMAIL NAMEDOT AROBASE "usherbrooke" CANADA
+#define WORK_EMAIL "jos" AROBASE "nordquantique" CANADA
+#define PERSONAL_EMAIL NAMEDOT AROBASE "gmail" COMMERCIAL
+#define GITHUB "www.github" COMMERCIAL SLASH "jeanolivier\n"
+
+
 // clang-format off
 enum layers{
   MAC,      // Now, MAC is for MACRO, aka the Windows key is the combo GUI/Fn key
@@ -62,14 +75,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MAC] = LAYOUT_ansi_68(
      KC_GRAVE, KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,      KC_MINS,   KC_EQL,   KC_BSPC, KC_DEL,
      KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,      KC_LBRC,   KC_RBRC,  KC_BSLS, MO(FN_RGB),
-     KC_ESC,   KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,   KC_QUOT,             KC_ENT,  RGB_MOD,
+     KC_ESC,   KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,   KC_QUOT,             KC_ENT,  QK_LEAD,
      KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,   KC_RSFT,             KC_UP,   MO(FN),
      KC_LCTL,  TD(0),    KC_LALT,                                KC_SPC,                       KC_RALT,  KC_APP,    KC_RCTL,   KC_LEFT,  KC_DOWN, KC_RGHT),
 
 [WIN] = LAYOUT_ansi_68(
      KC_GRAVE, KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,      KC_MINS,   KC_EQL,   KC_BSPC, KC_DEL,
      KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,      KC_LBRC,   KC_RBRC,  KC_BSLS, MO(FN_RGB),
-     KC_ESC,   KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,   KC_QUOT,             KC_ENT,  RGB_MOD,
+     KC_ESC,   KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,   KC_QUOT,             KC_ENT,  QK_LEAD,
      KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,   KC_RSFT,             KC_UP,   MO(FN),
      KC_LCTL,  KC_LGUI,  KC_LALT,                                KC_SPC,                       KC_RALT,  KC_APP,    KC_RCTL,   KC_LEFT,  KC_DOWN, KC_RGHT),
 
@@ -77,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      QK_BOOT,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,    KC_F11,    KC_F12,   KC_PAUS,  KC_PSCR,
      KC_TRNS,  KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,
      KC_TRNS,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MPLY,  KC_MPRV,  KC_MNXT,  KC_MSTP,   KC_TRNS,             KC_TRNS,  KC_TRNS,
-     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_TRNS,   KC_TRNS,             KC_PGUP,  KC_TRNS,
+     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  NK_TOGG,  KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_TRNS,   KC_TRNS,             KC_PGUP,  KC_TRNS,
      KC_TRNS,  KC_TRNS,  KC_TRNS,                                KC_TRNS,                      KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_HOME,  KC_PGDN,  KC_END),
 
 [FN_RGB] = LAYOUT_ansi_68(
@@ -221,4 +234,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+
+// Leader key macros
+
+void leader_start_user(void) {
+    // Do something when the leader key is pressed, kept as an example
+}
+
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_N)) {  // Name
+        SEND_STRING(NAME);
+    } else if (leader_sequence_two_keys(KC_N, KC_D)){  // Name with dots
+        SEND_STRING(NAMEDOT);
+    } else if (leader_sequence_two_keys(KC_S, KC_E)){  // School email
+        SEND_STRING(SCHOOL_EMAIL);
+    } else if (leader_sequence_two_keys(KC_W, KC_E)){  // Work email
+        SEND_STRING(WORK_EMAIL);
+    } else if (leader_sequence_two_keys(KC_P, KC_E)){  // Personal email
+        SEND_STRING(PERSONAL_EMAIL);
+    } else if (leader_sequence_one_key(KC_G)){
+        SEND_STRING(GITHUB);
+    }
+}
 
